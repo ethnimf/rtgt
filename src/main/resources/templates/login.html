@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head('Вход')"></head>
+<body class="bg-app">
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<main class="container py-4" style="max-width: 520px;">
+    <div class="bg-panel p-4">
+        <h1 class="h4 mb-3">Вход</h1>
+
+        <div th:if="${param.error}" class="alert alert-danger">Неверный логин или пароль</div>
+        <div th:if="${param.logout}" class="alert alert-success">Вы вышли из системы</div>
+        <div th:if="${param.registered}" class="alert alert-success">Регистрация успешна. Войдите.</div>
+
+        <form th:action="@{/login}" method="post" class="vstack gap-3">
+            <div>
+                <label class="form-label">Email</label>
+                <input name="username" class="form-control" placeholder="email@example.com" required>
+            </div>
+            <div>
+                <label class="form-label">Пароль</label>
+                <input name="password" type="password" class="form-control" placeholder="******" required>
+            </div>
+
+            <button class="btn btn-primary" type="submit">Войти</button>
+            <div class="text-muted small">
+                Нет аккаунта? <a th:href="@{/register}">Регистрация</a>
+            </div>
+        </form>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

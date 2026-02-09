@@ -1,0 +1,11 @@
+body.bg-app { background: #0f1115; color: #e7eaf0; }
+a { text-decoration: none; }
+.card, .table, .form-control, .form-select { border-radius: 14px; }
+.navbar { border-bottom: 1px solid rgba(255,255,255,.08); }
+.bg-panel { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; }
+.table { color: #e7eaf0; }
+.table thead th { color: #aab2c0; }
+.btn-primary { border-radius: 14px; }
+.form-control, .form-select { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10); color: #e7eaf0; }
+.form-control:focus, .form-select:focus { box-shadow: none; border-color: rgba(255,255,255,.25); }
+.text-muted { color: #aab2c0 !important; }

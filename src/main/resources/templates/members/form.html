@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('Читатель')"></head>
+<body class="bg-app">
+<div th:replace="fragments/navbar :: navbar"></div>
+<main class="container py-4" style="max-width:720px;">
+    <div class="bg-panel p-4">
+        <h1 class="h4 mb-3" th:text="${item.id} == null ? 'Новый читатель' : 'Редактирование читателя'">Читатель</h1>
+        <form th:action="${item.id} == null ? @{/librarian/members} : @{/librarian/members/{id}(id=${item.id})}"
+              th:object="${item}" method="post" class="vstack gap-3">
+            <div>
+                <label class="form-label">ФИО</label>
+                <input th:field="*{fullName}" class="form-control" placeholder="Иванов Иван">
+                <div class="text-danger small" th:errors="*{fullName}"></div>
+            </div>
+            <div>
+                <label class="form-label">Email</label>
+                <input th:field="*{email}" class="form-control" placeholder="email@example.com">
+                <div class="text-danger small" th:errors="*{email}"></div>
+            </div>
+            <div>
+                <label class="form-label">Телефон</label>
+                <input th:field="*{phone}" class="form-control" placeholder="+49...">
+                <div class="text-danger small" th:errors="*{phone}"></div>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary" type="submit">Сохранить</button>
+                <a class="btn btn-outline-light" th:href="@{/librarian/members}">Назад</a>
+            </div>
+        </form>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

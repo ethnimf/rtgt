@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('Выдачи')"></head>
+<body class="bg-app">
+<div th:replace="fragments/navbar :: navbar"></div>
+<main class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h4 mb-0">Выдачи / возвраты</h1>
+        <a class="btn btn-primary" th:href="@{/librarian/borrows/new}"><i class="bi bi-plus-lg me-1"></i>Оформить выдачу</a>
+    </div>
+
+    <div class="bg-panel p-3">
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+            <tr>
+                <th style="width:90px;">ID</th>
+                <th>Читатель</th>
+                <th>Экземпляр</th>
+                <th>Дата выдачи</th>
+                <th>Срок</th>
+                <th>Возврат</th>
+                <th style="width:220px;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="r : ${items}">
+                <td th:text="${r.id}">1</td>
+                <td th:text="${r.member != null ? r.member.fullName : '-'}">Member</td>
+                <td th:text="${r.bookCopy != null ? r.bookCopy.inventoryCode : '-'}">Copy</td>
+                <td th:text="${r.borrowedAt}">2026-01-01</td>
+                <td th:text="${r.dueAt}">2026-01-15</td>
+                <td th:text="${r.returnedAt != null ? r.returnedAt : '-'}">-</td>
+                <td class="text-end">
+                    <a class="btn btn-sm btn-outline-light" th:href="@{/librarian/borrows/{id}/edit(id=${r.id})}">Редактировать</a>
+                    <form th:action="@{/librarian/borrows/{id}/delete(id=${r.id})}" method="post" class="d-inline">
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

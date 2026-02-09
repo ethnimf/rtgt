@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('Каталог книг')"></head>
+<body class="bg-app">
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<main class="container py-4">
+    <h1 class="h4 mb-3">Каталог книг</h1>
+
+    <div class="bg-panel p-3">
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+            <tr>
+                <th style="width:90px;">ID</th>
+                <th>Название</th>
+                <th>ISBN</th>
+                <th>Автор</th>
+                <th>Категория</th>
+                <th>Изд-во</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="b : ${items}">
+                <td th:text="${b.id}">1</td>
+                <td th:text="${b.title}">Title</td>
+                <td th:text="${b.isbn}">isbn</td>
+                <td th:text="${b.author != null ? b.author.fullName : '-'}">author</td>
+                <td th:text="${b.category != null ? b.category.name : '-'}">cat</td>
+                <td th:text="${b.publisher != null ? b.publisher.name : '-'}">pub</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>

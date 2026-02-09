@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('Книга')"></head>
+<body class="bg-app">
+<div th:replace="fragments/navbar :: navbar"></div>
+<main class="container py-4" style="max-width: 880px;">
+    <div class="bg-panel p-4">
+        <h1 class="h4 mb-3" th:text="${form.id} == null ? 'Новая книга' : 'Редактирование книги'">Книга</h1>
+
+        <form th:action="${form.id} == null ? @{/librarian/books} : @{/librarian/books/{id}(id=${form.id})}"
+              th:object="${form}" method="post" class="row g-3">
+
+            <div class="col-12">
+                <label class="form-label">Название</label>
+                <input th:field="*{title}" class="form-control">
+                <div class="text-danger small" th:errors="*{title}"></div>
+            </div>
+
+            <div class="col-12 col-lg-4">
+                <label class="form-label">ISBN</label>
+                <input th:field="*{isbn}" class="form-control">
+                <div class="text-danger small" th:errors="*{isbn}"></div>
+            </div>
+
+            <div class="col-12 col-lg-4">
+                <label class="form-label">Год</label>
+                <input th:field="*{publicationYear}" type="number" class="form-control">
+                <div class="text-danger small" th:errors="*{publicationYear}"></div>
+            </div>
+
+            <div class="col-12 col-lg-4">
+                <label class="form-label">Цена</label>
+                <input th:field="*{price}" type="number" step="0.01" class="form-control">
+                <div class="text-danger small" th:errors="*{price}"></div>
+            </div>
+
+            <div class="col-12 col-lg-4">
+                <label class="form-label">Автор</label>
+                <select th:field="*{authorId}" class="form-select">
+                    <option th:value="${null}" disabled selected>Выберите автора</option>
+                    <option th:each="a : ${authors}" th:value="${a.id}" th:text="${a.fullName}"></option>
+                </select>
+                <div class="text-danger small" th:errors="*{authorId}"></div>
+            </div>
+
+            <div class="col-12 col-lg-4">
+                <label class="form-label">Категория</label>
+                <select th:field="*{categoryId}" class="form-select">
+                    <option th:value="${null}" disabled selected>Выберите категорию</option>
+                    <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+                </select>
+                <div class="text-danger small" th:errors="*{categoryId}"></div>
+            </div>
+
+            <div class="col-12 col-lg-4">
+                <label class="form-label">Издательство</label>
+                <select th:field="*{publisherId}" class="form-select">
+                    <option th:value="${null}" disabled selected>Выберите издательство</option>
+                    <option th:each="p : ${publishers}" th:value="${p.id}" th:text="${p.name}"></option>
+                </select>
+                <div class="text-danger small" th:errors="*{publisherId}"></div>
+            </div>
+
+            <div class="col-12 d-flex gap-2 mt-2">
+                <button class="btn btn-primary" type="submit">Сохранить</button>
+                <a class="btn btn-outline-light" th:href="@{/librarian/books}">Назад</a>
+            </div>
+        </form>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

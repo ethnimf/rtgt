@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('Книги')"></head>
+<body class="bg-app">
+<div th:replace="fragments/navbar :: navbar"></div>
+<main class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h4 mb-0">Книги</h1>
+        <a class="btn btn-primary" th:href="@{/librarian/books/new}"><i class="bi bi-plus-lg me-1"></i>Добавить</a>
+    </div>
+
+    <div class="bg-panel p-3">
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+            <tr>
+                <th style="width:90px;">ID</th>
+                <th>Название</th>
+                <th>ISBN</th>
+                <th>Автор</th>
+                <th>Категория</th>
+                <th>Изд-во</th>
+                <th style="width:220px;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="b : ${items}">
+                <td th:text="${b.id}">1</td>
+                <td th:text="${b.title}">Title</td>
+                <td th:text="${b.isbn}">isbn</td>
+                <td th:text="${b.author != null ? b.author.fullName : '-'}">author</td>
+                <td th:text="${b.category != null ? b.category.name : '-'}">cat</td>
+                <td th:text="${b.publisher != null ? b.publisher.name : '-'}">pub</td>
+                <td class="text-end">
+                    <a class="btn btn-sm btn-outline-light" th:href="@{/librarian/books/{id}/edit(id=${b.id})}">Редактировать</a>
+                    <form th:action="@{/librarian/books/{id}/delete(id=${b.id})}" method="post" class="d-inline">
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
